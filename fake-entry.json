@@ -1,0 +1,18 @@
+[
+  {
+    "device": "fake-entry",
+    "date": DATEHERE,
+    "dateString": "DATESTRINGHERE",
+    "sgv": 90,
+    "direction": "Flat",
+    "type": "sgv",
+    "filtered": 0,
+    "unfiltered": 0,
+    "rssi": 0,
+    "noise": 4,
+    "trend": 0,
+    "state": "Stopped",
+    "status": "None",
+    "glucose": 90
+  }
+]

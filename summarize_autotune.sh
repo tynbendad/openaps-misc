@@ -1,0 +1,5 @@
+echo $1
+perl -n -e 'BEGIN { $mn = 999; } if (m/^ .*:.*\b([0-9]+\.[0-9]+) *$/) { $n++; $mn = ($mn > $1) ? $1 : $mn; $mx = $mx > $1 ? $mx : $1; $a = $a + $1; $v = $a / $n; } END { print "hours:$n, total basal:$a, min:$mn, max:$mx, avg:$v\n"; }' $1
+grep "^Carb Ratio" $1 | perl -p -e 's/(Carb Ratio).*\|/$1/;'
+grep "^ISF" $1 | perl -p -e 's/(ISF).*\|/$1/;'
+perl -n -e 'BEGIN { $round_to = 0.025; $max_diff = 0.1; print "rounding to $round_to and grouping to $max_diff:\n"; $mn = 999; $mx = 0; $a = 0; $n = 0; $h = 0; } if (m/^ .*:.*\b([0-9]+\.[0-9]+) *$/) { $flr = $1 - (($1 * 1000) % ($round_to * 1000)) / 1000; if (0) { print "flr=$flr, raw=$1, n=$n, h=$h, mn=$mn, mx=$mx, dif1=", $flr-$mn, "dif2=", $mx-$flr, "\n" }; if (($n > 0) && ((($flr - $mn - 0.00001) > $max_diff) || (($mx - $flr - 0.00001) > $max_diff))) { $v = $a / $n; print "$h:00, min:$mn, max:$mx, avg:$v\n"; $mn = 999; $mx = 0; $a = 0; $h += $n; $n = 0; } $n++; $mn = ($mn > $flr) ? $flr : $mn; $mx = $mx > $flr ? $mx : $flr; $a = $a + $flr; if (($h+$n) == 24) { $v = $a / $n; print "$h:00, min:$mn, max:$mx, avg:$v\n"; $mn = 999; $mx = 0; $a = 0; $h += $n; $n = 0; } }' $1
