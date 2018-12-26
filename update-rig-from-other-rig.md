@@ -1,13 +1,7 @@
+# My steps to update an OpenAPS 0.6.2 rig with settings/changes from another rig
+
 ## update openaps install - see https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/update-your-rig.html
 ## update Logger install - see https://github.com/xdrip-js/Logger/blob/dev/README.md
-## reboot in case of kernel panics (vs rig just hangs by default):
-```
-vi /etc/sysctl.conf
-```
-add a line immediately after the top block of comments:
-```
-kernel.panic = 3
-```
 
 ## non-pulled openaps updates:
 ### oref0-online updates for "bt_with_wifi" and "bt_offline" (an earlier version of these changes are in dev 0.7 but not 0.6.2):
@@ -15,6 +9,15 @@ kernel.panic = 3
  cd /usr/local/bin
  cp -p oref0-online oref0-online.sh.backup1
  scp root@192.168.1.110:/usr/local/bin/oref0-online .
+```
+
+### reboot in case of kernel panics (vs rig just hangs by default; this may make it into dev 0.7 install script if it hasn't already):
+```
+vi /etc/sysctl.conf
+```
+add a line immediately after the top block of comments:
+```
+kernel.panic = 3
 ```
 
 ## non-pulled logger updates (changes are already in Logger's master branch as of 12/24/2018 - this is just here for reference, ignore for now):
@@ -66,6 +69,7 @@ kernel.panic = 3
  scp root@192.168.1.110:/root/xdrip-js-monitor.sh .
 ```
 ### for deleting old NS entries, treatments, devicedata, so mlab doesn't fill up - requires NS v11 dev branch:
+*** NOTE: read/edit/use carefully as it will permanently delete data from your Nightscout/mlab databases ***
 ```
  scp root@192.168.1.110:/root/delete_old_ns.sh .
 ```
