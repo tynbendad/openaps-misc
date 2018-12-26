@@ -2,6 +2,8 @@
 
 ## update openaps install - see https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/update-your-rig.html
 ## update Logger install - see https://github.com/xdrip-js/Logger/blob/dev/README.md
+## check Wifi setup: `less /etc/wpa_supplicant/wpa_supplicant.conf`
+## check BT setup: https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/bluetooth-tethering-edison.html#bluetooth-setup
 
 ## non-pulled openaps updates:
 ### oref0-online updates for "bt_with_wifi" and "bt_offline" (an earlier version of these changes are in dev 0.7 but not 0.6.2):
