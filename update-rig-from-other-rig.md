@@ -28,7 +28,7 @@ kernel.panic = 3
  scp root@192.168.1.110:/root/src/Logger/xdrip-get-entries.sh ./xdrip-get-entries.sh.110
 ```
 
-## copy latest preferences and xdrip settings:
+## copy latest preferences and Logger settings (only valid if both rigs are same openaps/Logger versions):
 ```
  cd ~/myopenaps
  cp -p preferences.json preferences.json.backup1
