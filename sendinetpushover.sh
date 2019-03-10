@@ -9,7 +9,6 @@ then
     diff /var/tmp/inetaddrs.bnep0.txt.new /var/tmp/inetaddrs.bnep0.txt
     if [ $? != 0 ]
     then
-        cat /var/tmp/inetaddrs.bnep0.txt.new | xargs -r ~/sendmypushover.sh "bt inet addr change"
         echo "change detected in bnep0 addr"
         echo "old:"
         cat /var/tmp/inetaddrs.bnep0.txt
@@ -17,7 +16,11 @@ then
         cat /var/tmp/inetaddrs.bnep0.txt.new
         echo "ifconfig bnep0:"
         ifconfig bnep0
-        mv /var/tmp/inetaddrs.bnep0.txt.new /var/tmp/inetaddrs.bnep0.txt
+        cat /var/tmp/inetaddrs.bnep0.txt.new | xargs -r ~/sendmypushover.sh "bt inet addr change"
+        if [ $? == 0 ]
+        then
+            mv /var/tmp/inetaddrs.bnep0.txt.new /var/tmp/inetaddrs.bnep0.txt
+        fi
     fi
 fi
 grep "addr:" /var/tmp/inetaddrs.wlan0.txt.new
@@ -26,7 +29,6 @@ then
     diff /var/tmp/inetaddrs.wlan0.txt.new /var/tmp/inetaddrs.wlan0.txt
     if [ $? != 0 ]
     then
-        cat /var/tmp/inetaddrs.wlan0.txt.new | xargs -r ~/sendmypushover.sh "wifi inet addr change"
         echo "change detected in wlan0 addr"
         echo "old:"
         cat /var/tmp/inetaddrs.wlan0.txt
@@ -34,12 +36,16 @@ then
         cat /var/tmp/inetaddrs.wlan0.txt.new
         echo "ifconfig wlan0:"
         ifconfig wlan0
-        mv /var/tmp/inetaddrs.wlan0.txt.new /var/tmp/inetaddrs.wlan0.txt
+        cat /var/tmp/inetaddrs.wlan0.txt.new | xargs -r ~/sendmypushover.sh "wifi inet addr change"
+        if [ $? == 0 ]
+        then
+            mv /var/tmp/inetaddrs.wlan0.txt.new /var/tmp/inetaddrs.wlan0.txt
+        fi
     fi
 fi
 if [ $(bc <<< "$(date +'%M') % 30") -eq 0 ]
 then
-    tail -300 /var/log/openaps/pump-loop.log| grep -B7 Completed | egrep "enacted|bolused|No .* needed|Completed" | egrep -A1 "enacted|bolused|No .* needed"|tail -2 > /var/tmp/lastloopcheck.txt.new
+    tail -300 /var/log/openaps/pump-loop.log| grep -B30 Completed | egrep "enacted|bolused|No .* needed|Completed" | egrep -A1 "enacted|bolused|No .* needed"|tail -2 > /var/tmp/lastloopcheck.txt.new
     diff /var/tmp/lastloopcheck.txt.new /var/tmp/lastloopcheck.txt
     if [ $? == 0 ]
     then
