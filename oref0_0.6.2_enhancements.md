@@ -3,10 +3,13 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
 1. oref0-online is a script that OpenAPS executes regularly to keep your WiFi and BT connections alive and updated. My version of this script updates it to keep the BT connection open more often and consistently. These changes were submitted to dev branch and are part of 0.7 release, but 0.6.2 needs them as well.
    1. Enter these commands on your rig (it helps to copy and paste each one so you don't make any typos):
        ```
+       cd ~
        exefile=`which oref0-online`
        cp -p $exefile ${exefile}.backup1
-       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online $exefile
-       perl -pi -e 's/\r\n/\n/g' $exefile
+       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online oref0-online.new
+       chmod +x oref0-online.new
+       perl -pi -e 's/\r\n/\n/g' oref0-online.new
+       cp oref0-online.new $exefile
        ```
    1. Edit /root/myopenaps/preferences.json (using either vi or nano, as you prefer), and add these two new preferences to the end, but before the final "}":
        ```
