@@ -6,10 +6,7 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
        cd ~
        exefile=`which oref0-online`
        cp -p $exefile ${exefile}.backup1
-       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online oref0-online.new
-       chmod +x oref0-online.new
-       perl -pi -e 's/\r\n/\n/g' oref0-online.new
-       cp oref0-online.new $exefile
+       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online -O oref0-online
        ```
    1. Edit /root/myopenaps/preferences.json (using either vi or nano, as you prefer), and add these two new preferences to the end, but before the final "}":
        ```
@@ -27,7 +24,7 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
     1. Fetch the script to your rig with these commands:
         ```
         cd ~
-        wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/delete_old_ns.sh delete_old_ns.sh
+        wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/delete_old_ns.sh -O delete_old_ns.sh
         perl -pi -e 's/\r\n/\n/g' delete_old_ns.sh
         chmod +x ./delete_old_ns.sh
         ```
