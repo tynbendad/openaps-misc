@@ -6,7 +6,7 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
        cd ~
        exefile=`which oref0-online`
        cp -p $exefile ${exefile}.backup1
-       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online -O oref0-online
+       wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online -O $exefile
        
        ```
    1. Edit /root/myopenaps/preferences.json (using either vi or nano, as you prefer), and add these two new preferences to the end, but before the final "}":
