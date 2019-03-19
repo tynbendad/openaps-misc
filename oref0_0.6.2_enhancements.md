@@ -6,6 +6,7 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
        exefile=`which oref0-online`
        cp -p $exefile ${exefile}.backup1
        wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/oref0-online $exefile
+       perl -pi -e 's/\r\n/\n/g' $exefile
        ```
    1. Edit /root/myopenaps/preferences.json (using either vi or nano, as you prefer), and add these two new preferences to the end, but before the final "}":
        ```
@@ -24,6 +25,7 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
         ```
         cd ~
         wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/delete_old_ns.sh delete_old_ns.sh
+        perl -pi -e 's/\r\n/\n/g' delete_old_ns.sh
         chmod +x ./delete_old_ns.sh
         ```
     1. Look the script over with your favorite editor (e.g., `vi delete_old_ns.sh`) and make sure you agree with the time ranges it is going to delete - change them if you want to save more or less data... By default the script is saving 52 weeks (1 year) of BG data (entries) and treatments (insulin/carbs/sensors and cannula changes/etc), and only 3 weeks of devicestatus (loop status and CGM status). This is what worked for me, but my CGM uploader is logger/xdrip-js which may store more or less devicestatus than yours... Also check out the OpenAPS data commons and consider contributing your data before deleting it - https://openaps.org/outcomes/data-commons/ .
