@@ -24,13 +24,15 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
         ```
         cd ~
         wget https://raw.githubusercontent.com/tynbendad/openaps-misc/master/delete_old_ns.sh delete_old_ns.sh
-    1. Look the script over with your favorite editor (e.g., `vi delete_old_ns.sh` and make sure you agree with the time ranges it is going to delete - change them if you want to save more or less data... By default the script is saving 52 weeks (1 year) of BG data (entries) and treatments (insulin/carbs/sensors and cannula changes/etc), and only 3 weeks of devicestatus (loop status and CGM status). This is what worked for me, but my CGM uploader is logger/xdrip-js which may store more or less devicestatus than yours... Also check out the OpenAPS data commons and consider contributing your data before deleting it - https://openaps.org/outcomes/data-commons/ .
+        chmod +x ./delete_old_ns.sh
+        ```
+    1. Look the script over with your favorite editor (e.g., `vi delete_old_ns.sh`) and make sure you agree with the time ranges it is going to delete - change them if you want to save more or less data... By default the script is saving 52 weeks (1 year) of BG data (entries) and treatments (insulin/carbs/sensors and cannula changes/etc), and only 3 weeks of devicestatus (loop status and CGM status). This is what worked for me, but my CGM uploader is logger/xdrip-js which may store more or less devicestatus than yours... Also check out the OpenAPS data commons and consider contributing your data before deleting it - https://openaps.org/outcomes/data-commons/ .
     1. Add a crontab entry to run the script daily, by using `crontab -e` which should open your favorite editor (if it doesn't choose your preferred editor you can exit without saving and use `select-editor` to change the editor). The line you should add to the end of the file is:
         ```
         25 18 * * * /root/delete_old_ns.sh 2>&1 >> /var/log/openaps/delete_old_ns.log
         ```
         (You can change the first two values to start at a different time, this example has it running daily at 6:25PM. You might want to change it if you have multiple rigs so they don't all bombard your Nightscout site at the same time).
-    1. The next day you should check the log to make sure the commands worked, e.g., `cat /var/log/openaps/delete_old_ns.log`. You should see something like this (the "n" number is how many database records were deleted):
+    1. The next day (or right now if you choose to manually run it right away with `/root/delete_old_ns.sh 2>&1 >> /var/log/openaps/delete_old_ns.log`) you should check the log to make sure the commands worked, e.g., `cat /var/log/openaps/delete_old_ns.log`. You should see something like this (the "n" number is how many database records were deleted):
         ```
         deleting entries before 2018-03-19T18:25-0600...
         {"n":0,"opTime":{"ts":"6669891353771507713","t":12},"electionId":"7fffffff000000000000000c","ok":1,"operationTime":"6669891353771507713","$clusterTime":{"clusterTime":"6669891353771507713","signature":{"hash":"cEfu+aHX6lrrFC0SM9FuuxwfcxI=","keyId":"6628743123239436289"}}}
@@ -39,4 +41,3 @@ oref0 0.6.2 (also known as oref1 or OpenAPS "master" branch) on an Explorer-Edis
         deleting devicestatus before 2019-02-25T17:25-0700...
         {"n":1032,"opTime":{"ts":"6669891405311116296","t":12},"electionId":"7fffffff000000000000000c","ok":1,"operationTime":"6669891405311116296","$clusterTime":{"clusterTime":"6669891405311116296","signature":{"hash":"B1buy+elxguRJCXtGdBvl/XKQxw=","keyId":"6628743123239436289"}}}
         ```
- 
