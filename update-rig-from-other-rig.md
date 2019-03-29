@@ -1,7 +1,9 @@
 # My steps to update an OpenAPS 0.6.2 rig with settings/changes from another rig
 
 ## update openaps install - see https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/update-your-rig.html
+### check branch/commit level with `cd ~/src/oref0`, `git branch`, and `git log|less`
 ## update Logger install - see https://github.com/xdrip-js/Logger/blob/dev/README.md
+### check branch/commit level with `cd ~/src/Logger`, `git branch`, and `git log|less`
 ## check Wifi setup: `less /etc/wpa_supplicant/wpa_supplicant.conf`
 ## check BT setup: https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/bluetooth-tethering-edison.html#bluetooth-setup
 
