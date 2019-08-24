@@ -6,6 +6,22 @@
 ### check branch/commit level with `cd ~/src/Logger`, `git branch`, and `git log|less`
 ## check Wifi setup: `less /etc/wpa_supplicant/wpa_supplicant.conf`
 ## check BT setup: https://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/bluetooth-tethering-edison.html#bluetooth-setup
+### e.g., one at a time with pauses:
+```
+ sudo killall bluetoothd
+ sudo /usr/local/bin/bluetoothd --experimental &
+ sudo hciconfig hci0 name $HOSTNAME
+ bluetoothctl
+   power off
+   power on
+   discoverable on
+   scan on
+   agent on
+   default-agent
+   pair xx:xx:xx:xx:xx:xx
+   trust xx:xx:xx:xx:xx:xx
+   quit
+```
 
 ## non-pulled openaps updates:
 ### oref0-online updates for "bt_with_wifi" and "bt_offline" (an earlier version of these changes are in dev 0.7 but not 0.6.2):
