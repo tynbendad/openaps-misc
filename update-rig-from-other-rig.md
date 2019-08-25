@@ -60,6 +60,8 @@ kernel.panic = 3
  cd ~/myopenaps/settings
  cp -p autotune.json autotune.json.backup1
  scp root@192.168.1.110:/root/myopenaps/settings/autotune.json .
+ cp -p autosens.json autosens.json.backup1
+ scp root@192.168.1.110:/root/myopenaps/settings/autosens.json .
  cd ~/myopenaps/autotune
  cp -p profile.json profile.json.backup1
  scp root@192.168.1.110:/root/myopenaps/autotune/profile.json .
